@@ -9,12 +9,16 @@ Will need espeak-ng and sox installed
 
 #### espeak-ng and sox
 
+```
 sudo apt-get install espeak-ng libsndfile1 sox
+```
 
 ---------------------------------------------------------------
 #### uv
 
+```
 wget -qO- https://astral.sh/uv/install.sh | sh
+```
 
 ---------------------------------------------------------------
 
@@ -22,22 +26,28 @@ wget -qO- https://astral.sh/uv/install.sh | sh
 
 #### espeak-ng and sox - From the command line 
 
-- winget install ChrisBagwell.SoX
-- winget install eSpeak-NG.eSpeak-NG
+```
+winget install ChrisBagwell.SoX
+winget install eSpeak-NG.eSpeak-NG
+```
 
 -----------------------------------------------------------------
 
 #### uv 
 
+```
 py -m pip install uv
+```
 
 ------------------------------------------------------------------
 
 ### Everyone
 
-1. git clone https://github.com/noodlepopllc/ScriptReader.git
-2. cd ScriptReader
-3. uv run ScriptReader -h
+```
+git clone https://github.com/noodlepopllc/ScriptReader.git
+cd ScriptReader
+uv run ScriptReader -h
+```
 
 -------------------------------------------------------------------
 
@@ -50,14 +60,12 @@ First time it is run it will create a config.json file the file contents are the
 
 This will be the default voice, to change or add additional voices run the gui
 
+```
 uv run ScriptReader.py --gui
+```
 
 This will allow you to edit Alex voice or create new ones by changing the name, you can also play to create a sample and download it for reference voices for other AI TTS models. Such as chatterbox or indextts.
 
 The script format is simple, name: text, it will say whatever is on the line and use the configuration from the voice in the config or default to alex, can add as many voices as you like. 
 
 There are additional options, -q or silence will remove any silences in the wave and -s or segment will break up line into individual sentences.
-
-
-
-
