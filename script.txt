@@ -1,0 +1,3 @@
+Alex: Hello, I am Alex Grant and today, I will be your host.
+Alex: To start just write a file with a name a colon followed by a space and whatever you wish for me to say.
+
