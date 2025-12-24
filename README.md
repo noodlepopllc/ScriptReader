@@ -1,39 +1,41 @@
 # ScriptReader
 Reads and creates wav files based on a script
 
-Installation
---------------
+## Installation
+==================
 
 Will need espeak-ng and sox installed
 
-For linux
-==============
+### For linux
+----------------
 
 sudo apt-get install espeak-ng libsndfile1 sox
 
-uv
+#### uv
+---------------
 
 wget -qO- https://astral.sh/uv/install.sh | sh
 
-Windows
+### Windows
 ===============
 From the command line
 
 winget install ChrisBagwell.SoX
 winget install eSpeak-NG.eSpeak-NG
 
-uv 
+#### uv 
+---------
 
 py -m pip install uv
 
-Everyone
+### Everyone
 ===========
 
 git clone https://github.com/noodlepopllc/ScriptReader.git
 cd ScriptReader
 uv run ScriptReader -h
 
-Usage
+## Usage
 ---------------
 First time it is run it will create a config.json file the file contents are the following
 {"alex": {"voice": "am_fenrir", "speed": 1.0, "mix": 100}}
