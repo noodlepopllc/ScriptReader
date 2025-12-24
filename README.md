@@ -22,8 +22,8 @@ wget -qO- https://astral.sh/uv/install.sh | sh
 
 #### espeak-ng and sox - From the command line 
 
-winget install ChrisBagwell.SoX
-winget install eSpeak-NG.eSpeak-NG
+- winget install ChrisBagwell.SoX
+- winget install eSpeak-NG.eSpeak-NG
 
 -----------------------------------------------------------------
 
