@@ -7,6 +7,7 @@ Will need espeak-ng and sox installed
 
 ### For linux
 
+#### espeak-ng and sox
 
 sudo apt-get install espeak-ng libsndfile1 sox
 
@@ -19,7 +20,7 @@ wget -qO- https://astral.sh/uv/install.sh | sh
 
 ### Windows
 
-From the command line
+#### espeak-ng and sox - From the command line 
 
 winget install ChrisBagwell.SoX
 winget install eSpeak-NG.eSpeak-NG
