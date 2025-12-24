@@ -63,6 +63,8 @@ This will be the default voice, to change or add additional voices run the gui
 ```
 uv run ScriptReader.py --gui
 ```
+![GUI](images/gui.png "GUI")
+
 
 This will allow you to edit Alex voice or create new ones by changing the name, you can also play to create a sample and download it for reference voices for other AI TTS models. Such as chatterbox or indextts.
 
