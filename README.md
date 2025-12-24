@@ -44,7 +44,9 @@ py -m pip install uv
 ## Usage
 
 First time it is run it will create a config.json file the file contents are the following
+```
 {"alex": {"voice": "am_fenrir", "speed": 1.0, "mix": 100}}
+```
 
 This will be the default voice, to change or add additional voices run the gui
 
