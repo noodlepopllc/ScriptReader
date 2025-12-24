@@ -1,0 +1,15 @@
+[project]
+name = "ScriptReader"
+version = "1.0.0"
+description = "Reads a script and generates wav files"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "kokoro-onnx",
+    "soundfile",
+    "pip",
+    "librosa",
+    "sox",
+    "gradio",
+    "spacy-download",
+]
