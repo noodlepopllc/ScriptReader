@@ -35,9 +35,9 @@ py -m pip install uv
 
 ### Everyone
 
-git clone https://github.com/noodlepopllc/ScriptReader.git
-cd ScriptReader
-uv run ScriptReader -h
+1. git clone https://github.com/noodlepopllc/ScriptReader.git
+2. cd ScriptReader
+3. uv run ScriptReader -h
 
 -------------------------------------------------------------------
 
