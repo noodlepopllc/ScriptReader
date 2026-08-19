@@ -17,7 +17,7 @@ class Voice(object):
                 'data/voices-v1.0.bin':
                 'https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin'}
 
-    def __init__(self, config_path, silence, segment):
+    def __init__(self, config_path, silence, segment, output):
         self.silence = silence
         self.segment = segment
         self.config_path = config_path
@@ -26,6 +26,7 @@ class Voice(object):
         self.check_required()
         self.kokoro = Kokoro("data/kokoro-v1.0.onnx", "data/voices-v1.0.bin")
         self.tokenizer = Tokenizer()
+        self.output = output
 
     def download_file_requests(self, url, filename):
         with requests.get(url, stream=True) as r:
@@ -45,8 +46,6 @@ class Voice(object):
         tfm = sox.Transformer()
         tfm.silence()
         tfm.build_file(input_file, output_file)
-
-
 
     def readScript(self, script):
         nlp = load_spacy("en_core_web_sm", exclude=["parser", "tagger"])
@@ -187,13 +186,15 @@ class Voice(object):
             return
         prefix = Path(script).stem
 
+        Path(self.output).mkdir(parents=True, exist_ok=True)
+
         for idx in range(len(outp),len(inp)):
             key = [x for x in inp[idx].keys()][0]
             if key not in self.config:
                 key = 'alex'
             text = inp[idx][key]
             voice = self.config[key]
-            p = f'{prefix}_{idx:03}_{key}.wav'
+            p = f'{self.output}/{prefix}_{idx:03}_{key}.wav'
             inp[idx]['path'] = p
             inp[idx]['duration'] = self.create_wav(text, p, key)
             outp.append(inp[idx])
@@ -209,6 +210,7 @@ def main():
     parser.add_argument('-q', '--silence', action='store_true', help='remove silence')
     parser.add_argument('-s', '--segment', action='store_true', help='segment sentences')
     parser.add_argument('-c', '--config', type=str, default='data/config.json', help='config file')
+    parser.add_argument('-o', '--output', type=str, default='waves', help='directory to output wav files into')
     args = parser.parse_args()
     Path("data").mkdir(parents=True, exist_ok=True)
     voice = None
@@ -216,7 +218,7 @@ def main():
     if not os.path.exists(config_path):
         with open(config_path, 'w') as outfile:
             dump({'alex':{'voice':'am_fenrir','speed':1.0,'mix':100}}, outfile)
-    voice = Voice(config_path,args.silence,args.segment)
+    voice = Voice(config_path,args.silence,args.segment,output=args.output)
     if args.gui:
         voice.gui()
     else:
