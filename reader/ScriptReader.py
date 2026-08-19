@@ -12,17 +12,19 @@ from spacy_download import load_spacy
 
 class Voice(object):
 
-    required = {'kokoro-v1.0.onnx':
+    required = {'data/kokoro-v1.0.onnx':
                 'https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/kokoro-v1.0.onnx',
-                'voices-v1.0.bin':
+                'data/voices-v1.0.bin':
                 'https://github.com/thewh1teagle/kokoro-onnx/releases/download/model-files-v1.0/voices-v1.0.bin'}
 
-    def __init__(self, config, silence, segment):
+    def __init__(self, config_path, silence, segment):
         self.silence = silence
         self.segment = segment
-        self.config = config
+        self.config_path = config_path
+        with open(config_path, 'r') as infile:
+            self.config = load(infile)
         self.check_required()
-        self.kokoro = Kokoro("kokoro-v1.0.onnx", "voices-v1.0.bin")
+        self.kokoro = Kokoro("data/kokoro-v1.0.onnx", "data/voices-v1.0.bin")
         self.tokenizer = Tokenizer()
 
     def download_file_requests(self, url, filename):
@@ -117,7 +119,7 @@ class Voice(object):
             v = f'{voice}:{blend_voice_name}'
         self.config[name.lower()] = {'voice':v,'speed':speed,'mix':blend_voice_slider}
 
-        with open('config.json', 'w') as outfile:
+        with open(self.config_path, 'w') as outfile:
             dump(self.config, outfile)
         
 
@@ -177,7 +179,7 @@ class Voice(object):
             
         return ui
 
-    def main(self, script):
+    def run(self, script):
         jsonpath = script.split('.')[-2] + '.json'
         outp = self.existing(jsonpath)
         inp = self.readScript(script)
@@ -198,21 +200,27 @@ class Voice(object):
         with open(jsonpath,'w') as outfile:
             dump(outp,outfile,indent=4)
 
-if __name__ == '__main__':
+def main():
     import argparse
+    from pathlib import Path
     parser = argparse.ArgumentParser(description='Create voices')
     parser.add_argument('-i','--input', type=str, default=None, help='script path')
     parser.add_argument('-u', '--gui', action='store_true', help='show gui')
     parser.add_argument('-q', '--silence', action='store_true', help='remove silence')
     parser.add_argument('-s', '--segment', action='store_true', help='segment sentences')
+    parser.add_argument('-c', '--config', type=str, default='data/config.json', help='config file')
     args = parser.parse_args()
+    Path("data").mkdir(parents=True, exist_ok=True)
     voice = None
-    if not os.path.exists('config.json'):
-        with open('config.json', 'w') as outfile:
+    config_path = args.config
+    if not os.path.exists(config_path):
+        with open(config_path, 'w') as outfile:
             dump({'alex':{'voice':'am_fenrir','speed':1.0,'mix':100}}, outfile)
-    with open('config.json','r') as infile:
-        voice = Voice(load(infile),args.silence,args.segment)
+    voice = Voice(config_path,args.silence,args.segment)
     if args.gui:
         voice.gui()
     else:
-        voice.main(args.input)
+       voice.run(args.input)
+if __name__ == '__main__':
+    main()
+

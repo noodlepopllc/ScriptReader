@@ -13,3 +13,12 @@ dependencies = [
     "gradio",
     "spacy-download",
 ]
+
+[tool.setuptools.packages.find]
+include = ["reader*"]
+
+[tool.uv]
+package = true
+
+[project.scripts]
+scriptreader = "reader.ScriptReader:main"
